@@ -90,7 +90,17 @@ const Navbar = () => {
             to="/allProduct"
             className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
           >
-            All Products
+            Products
+            <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/package"
+            className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
+          >
+            Packages
             <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </li>

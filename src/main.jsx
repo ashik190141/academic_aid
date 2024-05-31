@@ -17,6 +17,9 @@ import MyOrder from './components/MyOrder/MyOrder';
 import AllUser from './components/AllUser/AllUser';
 import AllProduct from './components/AdminDashboard/AllProduct/AllProduct';
 import UserBasedDiscount from './components/AdminDashboard/UserBasedDiscount/UserBasedDiscount';
+import AllUserProducts from './components/AdminDashboard/AllUserProducts/AllUserProducts';
+import OfferPackage from './components/OfferPackage/OfferPackage';
+import AllPackage from './components/AllPackage/AllPackage';
 
 
 const router = createBrowserRouter([
@@ -35,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/allProduct",
         element: <AllProducts></AllProducts>,
+      },
+      {
+        path: "/package",
+        element: <AllPackage></AllPackage>,
       },
       {
         path: "/my-order",
@@ -64,14 +71,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: "all-product",
-        element: <AllProduct></AllProduct>
+        element: <AllProduct></AllProduct>,
+      },
+      {
+        path: "all-userproduct",
+        element: <AllUserProducts></AllUserProducts>,
       },
       {
         path: "user-discount",
-        element: <UserBasedDiscount></UserBasedDiscount>
-      }
-    ]
-  }
+        element: <UserBasedDiscount></UserBasedDiscount>,
+      },
+      {
+        path: "createPackage",
+        element: <OfferPackage></OfferPackage>,
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

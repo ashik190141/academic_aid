@@ -53,7 +53,7 @@ const AddProduct = () => {
                                 // localStorage.setItem("mail", email);
                                 Swal.fire({
                                     title: "Success!",
-                                    text: "Registration Successful",
+                                    text: "Product Added Successful",
                                     icon: "success",
                                     confirmButtonText: "Cool!!!",
                                 });

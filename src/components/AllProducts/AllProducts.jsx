@@ -23,7 +23,7 @@ const AllProducts = () => {
           .then((data) => {
             console.log(data);
             setProducts(data);
-            // setRecords(data);
+          
           });
     }, [email])
 
@@ -81,16 +81,16 @@ const AllProducts = () => {
                 </div>
 
                 <div className='face back'>
-                    <p className='text-2xl font-bold'>{product.name}</p>
+                    <p className='text-2xl font-bold'>{product?.name}</p>
                         <div className="text-start mx-[20px] space-y-3">
-                            <h4 className='text-xl font-serif'>Product Type: {product.category}</h4>
-                            <h4 className='text-xl font-serif'>Product Price: <span className={`${email?'line-through font-light text-slate-200':''}`}>{product.price}</span> {product.discountPrice} </h4>
+                            {product.category && <h4 className='text-xl font-serif'>Product Type: {product?.category}</h4>}
+                            <h4 className='text-xl font-serif'>Product Price: ৳  <span className={`${email?'line-through font-light text-slate-200':''}`}>{product.price}</span> {product?.discountPrice} </h4>
                             <h4 className='text-xl font-serif'>Product Details: {product.description} </h4>
                         </div>
                     <div className='' >
                         <div className="flex items-center justify-between link">
                         {/* <h4 className="font-bold font-serif text-xl">Discount Price: {product.discountPrice} </h4> */}
-                        <h4 className="font-bold font-serif text-xl">Discount: {email ? <span>{product.price - product.discountPrice}</span> : 0} </h4>
+                        {product.discountPrice && <h4 className="font-bold font-serif text-xl">Discount: ৳  {email ? <span>{product.price - product.discountPrice}</span> : 0} </h4>}
                         <h4 onClick={()=>handleAddToCart(product._id)} className="btn bg-transparent border-none"><IoIosCart className="text-xl text-white" ></IoIosCart></h4>
                         </div>
                     </div>

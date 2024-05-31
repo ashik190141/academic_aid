@@ -26,33 +26,42 @@ const CartItem = () => {
     const navigate = useNavigate();
 
     const handleOrder = () => {
-        const orderData = {
-            email: email,
-            data: products?.data,
-            totalPrice: products?.totalPrice
-        }
-        fetch(" http://localhost:5000/api/v1/order/create-order", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(orderData),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.result) {
-              Swal.fire({
-                title: "Success!",
-                text: "Order Placed Successfully",
-                icon: "success",
-                confirmButtonText: "OK!!!",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  navigate("/");
-                }
-              });
-            }
-          });
+      const products = products?.data;
+      const data = [];
+      for (let i = 0; i < products.length; i++){
+        let obj = {
+          productId: products[i].productId,
+          discount: products[i].discount
+        };
+        data.push(obj)
+      }
+      const orderData = {
+          email: email,
+          data: data,
+          totalPrice: products?.totalPrice
+      }
+      fetch(" http://localhost:5000/api/v1/order/create-order", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.result) {
+            Swal.fire({
+              title: "Success!",
+              text: "Order Placed Successfully",
+              icon: "success",
+              confirmButtonText: "OK!!!",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigate("/");
+              }
+            });
+          }
+        });
     }
 
     return (
@@ -75,10 +84,13 @@ const CartItem = () => {
                     Quantity: {product.quantity}
                   </h4>
                   <h4 className="text-xl font-serif">
-                    Price: {product.price}{" "}
+                    Price: {product.price}
                   </h4>
+                  {product.discount != product.price && <h4 className="text-xl font-serif">
+                    Discount: {product.discount}
+                  </h4>}
                   <h4 className="text-xl font-serif">
-                    Discount: {product.discount}{" "}
+                    Product Type: {product.isType}
                   </h4>
                 </div>
                 <div className="">

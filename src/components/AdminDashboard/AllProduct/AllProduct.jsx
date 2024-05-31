@@ -77,6 +77,9 @@ const AllProduct = () => {
                     <button className="rounded-xl bg-[#0095FF] px-3 py-1 font-medium text-white duration-200 hover:bg-[#0095FF]/90">
                       {product?.price}
                     </button>
+                    {/* <button className="rounded-xl bg-[#0095FF] px-3 py-1 font-medium text-white duration-200 hover:bg-[#0095FF]/90">
+                      {product?.discountPrice}
+                    </button> */}
                   </div>
                   <img
                     width={300}

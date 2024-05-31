@@ -21,6 +21,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import DiscountIcon from "@mui/icons-material/Discount";
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 
 const drawerWidth = 240;
 
@@ -102,7 +103,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -157,6 +158,37 @@ export default function Dashboard() {
               </ListItemButton>
             </Link>
           </ListItem>
+
+          <ListItem
+            key="All Users Products"
+            disablePadding
+            sx={{ display: "block" }}
+          >
+            <Link to="/dashboard/all-userproduct">
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="All Users  Products"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+
           <ListItem key="All Products" disablePadding sx={{ display: "block" }}>
             <Link to="/dashboard/all-product">
               <ListItemButton
@@ -182,6 +214,7 @@ export default function Dashboard() {
               </ListItemButton>
             </Link>
           </ListItem>
+
           <ListItem key="Discount" disablePadding sx={{ display: "block" }}>
             <Link to="/dashboard/user-discount">
               <ListItemButton
@@ -202,6 +235,36 @@ export default function Dashboard() {
                 </ListItemIcon>
                 <ListItemText
                   primary="Discount"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+
+          <ListItem
+            key="create-package"
+            disablePadding
+            sx={{ display: "block" }}
+          >
+            <Link to="/dashboard/createPackage">
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Inventory2Icon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Create Package"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>
