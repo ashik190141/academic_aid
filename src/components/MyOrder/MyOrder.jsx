@@ -37,40 +37,39 @@ const MyOrder = () => {
               <p className="py-2 flex justify-start">
                 Order Date: {dateFormatter(order?.createdAt)}
               </p>
-              <div className="max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-5 pb-2">
-                {order?.data?.map((data) => (
-                  <Card sx={{ maxWidth: 345 }} key={data?._id}>
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      image={data?.image}
-                      title="product_img"
-                    />
-                    <CardContent>
+              <div className="max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-5 pb-2 text-start">
+                <Card sx={{ maxWidth: 345 }} key={order?._id}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image={order?.image}
+                    title="product_img"
+                  />
+                  <CardContent>
+                    <div className="flex justify-between">
                       <Typography gutterBottom variant="h6" component="div">
-                        {data?.name}
+                        {order?.name}
                       </Typography>
                       <Typography gutterBottom variant="h6" component="div">
-                        {order?.email}
+                        {order?.quantity}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        $ {data?.price}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small">{data?.status}</Button>
-                      {data?.status != "pending" && (
-                        <Button
-                          onClick={() => openModal(data?.id)}
-                          size="small"
-                        >
-                          Review
-                        </Button>
-                      )}
-                    </CardActions>
-                  </Card>
-                ))}
+                    </div>
+                    <Typography variant="h6" color="text.secondary">
+                      $ {order?.price}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">{order?.status}</Button>
+                    {order?.status != "pending" && (
+                      <Button onClick={() => openModal(data?.id)} size="small">
+                        Review
+                      </Button>
+                    )}
+                  </CardActions>
+                </Card>
               </div>
-              <p className="py-2 pb-10 flex justify-start">Total Price: {order?.totalPrice}</p>
+              <p className="py-2 pb-10 flex justify-start">
+                Total Price: {order?.totalPrice}
+              </p>
             </div>
           ))}
         </div>

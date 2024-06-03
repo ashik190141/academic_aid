@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FaUser, FaUserMinus } from "react-icons/fa";
 import { IoIosCart } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userRole } from "../../utils/userRole";
 
 
 const Navbar = () => {
     const [dropDownState, setDropDownState] = useState(false);
     const dropDownMenuRef = useRef();
+    const navigate = useNavigate()
     let user = null;
     if(localStorage.getItem('key')){
       user=localStorage.getItem("key")
@@ -18,8 +19,8 @@ const Navbar = () => {
     } 
 
     const handleLogout = () => {
-      localStorage.removeItem('key')
-      window.location.reload();
+      navigate("/")
+      localStorage.removeItem('key');
     }
   
     useEffect(() => {
@@ -38,7 +39,7 @@ const Navbar = () => {
 
     const navlinks = (
       <>
-        <li>
+        {/* <li>
           {" "}
           <NavLink
             to="/"
@@ -47,7 +48,7 @@ const Navbar = () => {
             Home
             <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
-        </li>
+        </li> */}
 
         {role == "admin" && (
           <li>
@@ -90,7 +91,7 @@ const Navbar = () => {
             to="/allProduct"
             className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
           >
-            Products
+            Product
             <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </li>
@@ -100,18 +101,28 @@ const Navbar = () => {
             to="/package"
             className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
           >
-            Packages
+            Package
             <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </li>
 
-        {role != "admin" && (
+        <li>
+          <NavLink
+            to="/my-order"
+            className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
+          >
+            My Order
+            <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+          </NavLink>
+        </li>
+
+        {role == "admin" && (
           <li>
             <NavLink
-              to="/my-order"
+              to="/all-order"
               className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
             >
-              My Order
+              Order
               <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
             </NavLink>
           </li>

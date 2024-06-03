@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { userEmail } from "../../utils/userInfo";
 
 const OfferPackage = () => {
+  const [buyProduct, setBuyProduct] = useState('');
+  const [getProduct, setGetProduct] = useState('');
   let key = null;
   let email = null;
   if (localStorage.getItem("key")) {
@@ -51,14 +53,15 @@ const OfferPackage = () => {
     const price = form.price.value;
     const available = form.available.value;
     const description = form.description.value;
+    const category = form.category.value;
 
-    const data = []
+    let obj = {}
     for (let i = 0; i < selectedItems.length; i++){
-      const obj = {
+      obj = {
         productId: selectedItems[i]._id,
-        productNumber: document.getElementById(`product${i+1}`).value
+        buyProduct: parseInt(document.getElementById(`buy`).value),
+        getProduct: parseInt(document.getElementById(`get`).value),
       };
-      data.push(obj)
     }
 
     const packageInfo = {
@@ -66,9 +69,10 @@ const OfferPackage = () => {
       price: parseInt(price),
       available: parseInt(available),
       description: description,
-      data: data,
+      data: obj,
       sellingType: "0",
-      image: selectedItems[0].image
+      image: selectedItems[0].image,
+      category: category
     };
 
     console.log(packageInfo);
@@ -155,7 +159,7 @@ const OfferPackage = () => {
         <div>
           <h3 className="py-2">Selected Items:</h3>
           <ul>
-            {selectedItems?.map((item,index) => (
+            {selectedItems?.map((item, index) => (
               <li key={item._id} className="">
                 <div className="flex items-center justify-between my-2 p-2 border border-blue-200 rounded-md mx-2">
                   <div className="flex items-start gap-3">
@@ -176,13 +180,22 @@ const OfferPackage = () => {
                     <div className="font-medium text-red-600 pb-1 flex justify-end">
                       <span className="opacity-50">৳</span> {item.price}
                     </div>
-                    <div>
+                    <div className="flex gap-5">
                       <input
                         type="number"
                         required
-                        id={`product${index+1}`}
-                        placeholder="How Many"
-                        className="input input-bordered rounded-none input-xs w-28 max-w-xs"
+                        id="buy"
+                        onChange={(e) => setBuyProduct(e.target.value)}
+                        placeholder="Buy"
+                        className="input input-bordered rounded-none input-xs w-20 max-w-xs"
+                      />
+                      <input
+                        type="number"
+                        required
+                        id="get"
+                        onChange={(e) => setGetProduct(e.target.value)}
+                        placeholder="Get"
+                        className="input input-bordered rounded-none input-xs w-20 max-w-xs"
                       />
                     </div>
                   </div>
@@ -196,19 +209,51 @@ const OfferPackage = () => {
             <form onSubmit={handlePackage} className="space-y-2">
               <label className="input input-bordered flex items-center gap-2">
                 Name :
-                <input name="name" type="text" className="grow" placeholder="Combo" />
+                <input
+                  name="name"
+                  type="text"
+                  className="grow"
+                  placeholder="Combo"
+                  value={`Buy ${buyProduct} Get ${getProduct}`}
+                />
               </label>
               <label className="input input-bordered flex items-center gap-2">
                 Price : ৳
-                <input name="price" type="text" className="grow" placeholder="200" />
+                <input
+                  name="price"
+                  type="text"
+                  value={selectedItems[0]?.price * parseInt(buyProduct) || 0}
+                  className="grow"
+                  placeholder="200"
+                />
               </label>
               <label className="input input-bordered flex items-center gap-2">
                 Description :
-                <input name="description" type="text" className="grow" placeholder="Description" />
+                <input
+                  name="description"
+                  type="text"
+                  className="grow"
+                  placeholder="Description"
+                />
+              </label>
+              <label className="input input-bordered flex items-center gap-2">
+                Category :
+                <input
+                  name="category"
+                  type="text"
+                  className="grow"
+                  value={selectedItems[0]?.category || "Not Selected"}
+                  placeholder="Category"
+                />
               </label>
               <label className="input input-bordered flex items-center gap-2">
                 Available :
-                <input name="available" type="text" className="grow" placeholder="200" />
+                <input
+                  name="available"
+                  type="text"
+                  className="grow"
+                  placeholder="200"
+                />
               </label>
               <div className="flex items-end justify-end">
                 <button type="submit" className="btn btn-outline">

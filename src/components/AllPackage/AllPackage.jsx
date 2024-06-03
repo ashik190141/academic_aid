@@ -61,7 +61,7 @@ const AllPackage = () => {
     return (
       <div>
         <div>
-          <h2 className="text-4xl font-bold text-center py-10">All Products</h2>
+          <h2 className="text-4xl font-bold text-center py-10">All Packages</h2>
         </div>
         <div className="grid grid-cols-3 gap-5 max-w-7xl mx-auto">
           {products?.data?.map((product) => (
@@ -82,15 +82,16 @@ const AllPackage = () => {
                   <h4 className="text-xl font-serif">
                     Product Price: ৳{" "}
                     <span
-                      className={`${
-                        email ? "font-light text-slate-200" : ""
-                      }`}
+                      className={`${email ? "font-light text-slate-200" : ""}`}
                     >
                       {product.price}
                     </span>{" "}
                   </h4>
                   <h4 className="text-xl font-serif">
                     Product Details: {product.description}{" "}
+                  </h4>
+                  <h4 className="text-xl font-serif">
+                    Available: {product.available}{" "}
                   </h4>
                 </div>
                 <div className="">

@@ -20,6 +20,7 @@ import UserBasedDiscount from './components/AdminDashboard/UserBasedDiscount/Use
 import AllUserProducts from './components/AdminDashboard/AllUserProducts/AllUserProducts';
 import OfferPackage from './components/OfferPackage/OfferPackage';
 import AllPackage from './components/AllPackage/AllPackage';
+import Order from './components/Order/Order';
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/all-user",
         element: <AllUser></AllUser>,
+      },
+      {
+        path: "/all-order",
+        element: <Order></Order>,
       },
     ],
   },
