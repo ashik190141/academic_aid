@@ -49,7 +49,9 @@ const CartItem = () => {
 
     const handleOrder = () => {
       let data = [];
+      let totalPrice = 0;
       for (let i = 0; i < selectedItems.length; i++){
+        totalPrice = totalPrice + selectedItems[i].discount * selectedItems[i].quantity;
         let obj = {
           productId: selectedItems[i].productId,
           packageProductId: selectedItems[i].data.productId,
@@ -61,10 +63,10 @@ const CartItem = () => {
       const orderData = {
           email: email,
           data: data,
-          totalPrice: products?.totalPrice
+          totalPrice: totalPrice
       }
       console.log(orderData);
-      fetch(" http://localhost:5000/api/v1/order/create-order", {
+      fetch("http://localhost:5000/api/v1/order/create-order", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -142,6 +144,7 @@ const CartItem = () => {
             <h2 className="text-4xl font-bold text-center py-10">My Cart</h2>
           </div>
         )}
+        {/* cart data */}
         {!show && (
           <div className="grid grid-cols-3 gap-5 max-w-7xl mx-auto">
             {products?.data?.map((product) => (
@@ -199,6 +202,7 @@ const CartItem = () => {
             </button>
           </div>
         )}
+        {/* suggestion */}
         {!show && (
           <div className="mt-5">
             <div className="text-left font-bold text-4xl">Excited Offer</div>

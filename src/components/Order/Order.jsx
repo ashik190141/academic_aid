@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { dateFormatter } from "../../utils/dateFormatter";
+import Swal from "sweetalert2";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
@@ -22,6 +23,37 @@ const Order = () => {
         // setRecords(data);
       });
   }, []);
+
+  const handleDelivered = async (idInfo) => {
+    const data = {
+      orderId: idInfo.orderId,
+      orderDataId: idInfo.orderDataId,
+    };
+    fetch(
+      `http://localhost:5000/api/v1/order/order-delivered/${idInfo.orderId}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "product is delivered",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
+
   return (
     <div className="my-10">
       <div>
@@ -31,7 +63,7 @@ const Order = () => {
               Order Date: {dateFormatter(order?.createdAt)}
             </p>
             <div className="max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-5 pb-2 text-start">
-              <Card sx={{ maxWidth: 345 }} key={order?._id}>
+              <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   sx={{ height: 140 }}
                   image={order?.image}
@@ -52,9 +84,17 @@ const Order = () => {
                 </CardContent>
                 <CardActions>
                   <Button size="small">{order?.status}</Button>
-                  {order?.status != "pending" && (
-                    <Button onClick={() => openModal(data?.id)} size="small">
-                      Review
+                  {order?.status == "pending" && (
+                    <Button
+                      onClick={() =>
+                        handleDelivered({
+                          orderId: order?._id,
+                          orderDataId: order?.orderDataId,
+                        })
+                      }
+                      size="small"
+                    >
+                      Delivered
                     </Button>
                   )}
                 </CardActions>

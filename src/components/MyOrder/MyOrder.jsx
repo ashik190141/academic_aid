@@ -10,6 +10,20 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+import Modal from "react-modal";
+import ReturnOrderModal from './ReturnOrderModal';
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const MyOrder = () => {
     let key = null;
     if (localStorage.getItem("key")) {
@@ -18,7 +32,19 @@ const MyOrder = () => {
     const email = userEmail(key);
 
     const [orders, setOrders] = useState([]);
-    // const [records, setRecords] = useState([]);
+    const [productId, setProductId] = useState(null);
+    const [orderDataId, setOrderDataId] = useState(null);
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal(id, orderDataId) {
+      setProductId(id);
+      setOrderDataId(orderDataId);
+      setIsOpen(true);
+    }
+
+    function closeModal() {
+      setIsOpen(false);
+    }
 
     useEffect(() => {
       fetch(`http://localhost:5000/api/v1/order/my-orders/${email}`)
@@ -57,11 +83,16 @@ const MyOrder = () => {
                       $ {order?.price}
                     </Typography>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className="flex justify-between">
                     <Button size="small">{order?.status}</Button>
                     {order?.status != "pending" && (
-                      <Button onClick={() => openModal(data?.id)} size="small">
-                        Review
+                      <Button
+                        onClick={() =>
+                          openModal(order?._id, order?.orderDataId)
+                        }
+                        size="small"
+                      >
+                        return
                       </Button>
                     )}
                   </CardActions>
@@ -72,6 +103,30 @@ const MyOrder = () => {
               </p>
             </div>
           ))}
+        </div>
+        <div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <div className="flex justify-end">
+              <button
+                className="text-xl border border-black px-5"
+                onClick={closeModal}
+              >
+                X
+              </button>
+            </div>
+            <div>
+              <ReturnOrderModal
+                productId={productId}
+                closeModal={closeModal}
+                orderDataId={orderDataId}
+              ></ReturnOrderModal>
+            </div>
+          </Modal>
         </div>
       </div>
     );

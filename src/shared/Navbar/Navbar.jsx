@@ -106,7 +106,7 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-        <li>
+        {role && <li>
           <NavLink
             to="/my-order"
             className="text-zinc-600 font-bold group flex  cursor-pointer flex-col"
@@ -114,7 +114,7 @@ const Navbar = () => {
             My Order
             <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
-        </li>
+        </li>}
 
         {role == "admin" && (
           <li>

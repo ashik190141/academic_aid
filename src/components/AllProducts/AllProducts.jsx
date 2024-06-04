@@ -112,7 +112,7 @@ const AllProducts = () => {
                       <h4 className="font-bold font-serif text-xl">
                         Discount: ৳{" "}
                         {email ? (
-                          <span>{product.price - product.discountPrice}</span>
+                          <span>{parseFloat(product.price - product.discountPrice).toFixed(2)}</span>
                         ) : (
                           0
                         )}{" "}
