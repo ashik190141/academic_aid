@@ -26,18 +26,20 @@ const customStyles = {
 
 const MyOrder = () => {
     let key = null;
+    let p=0;
     if (localStorage.getItem("key")) {
       key = localStorage.getItem("key");
+      p = localStorage.getItem("price");
     }
     const email = userEmail(key);
 
     const [orders, setOrders] = useState([]);
-    const [productId, setProductId] = useState(null);
+    const [orderId, setOrderId] = useState(null);
     const [orderDataId, setOrderDataId] = useState(null);
     const [modalIsOpen, setIsOpen] = useState(false);
 
     function openModal(id, orderDataId) {
-      setProductId(id);
+      setOrderId(id);
       setOrderDataId(orderDataId);
       setIsOpen(true);
     }
@@ -88,7 +90,7 @@ const MyOrder = () => {
                     {order?.status != "pending" && (
                       <Button
                         onClick={() =>
-                          openModal(order?._id, order?.orderDataId)
+                          openModal(order?.orderId, order?.orderDataId)
                         }
                         size="small"
                       >
@@ -99,7 +101,7 @@ const MyOrder = () => {
                 </Card>
               </div>
               <p className="py-2 pb-10 flex justify-start">
-                Total Price: {order?.totalPrice}
+                Total Price: {order?.totalPrice-p}
               </p>
             </div>
           ))}
@@ -121,7 +123,7 @@ const MyOrder = () => {
             </div>
             <div>
               <ReturnOrderModal
-                productId={productId}
+                orderId={orderId}
                 closeModal={closeModal}
                 orderDataId={orderDataId}
               ></ReturnOrderModal>

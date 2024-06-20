@@ -49,35 +49,22 @@ const OfferPackage = () => {
     event.preventDefault();
 
     const form = event.target;
-    const name = form.name.value;
-    const price = form.price.value;
-    const available = form.available.value;
-    const description = form.description.value;
-    const category = form.category.value;
-
-    let obj = {}
-    for (let i = 0; i < selectedItems.length; i++){
-      obj = {
-        productId: selectedItems[i]._id,
-        buyProduct: parseInt(document.getElementById(`buy`).value),
-        getProduct: parseInt(document.getElementById(`get`).value),
-      };
-    }
+    // const name = form.name.value;
+    // const price = form.price.value;
+    // const available = form.available.value;
+    // const description = form.description.value;
+    // const category = form.category.value;
 
     const packageInfo = {
-      name: name,
-      price: parseInt(price),
-      available: parseInt(available),
-      description: description,
-      data: obj,
-      sellingType: "0",
+      productId: selectedItems[0]._id,
+      buyProduct: parseInt(document.getElementById(`buy`).value),
+      getProduct: parseInt(document.getElementById(`get`).value),
       image: selectedItems[0].image,
-      category: category
     };
 
     console.log(packageInfo);
 
-    fetch("http://localhost:5000/api/v1/product/create-package", {
+    fetch("http://localhost:5000/api/v1/package/create-package", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -95,7 +82,6 @@ const OfferPackage = () => {
             icon: "success",
             confirmButtonText: "OKK!!!",
           });
-          navigate("/package");
         }
       })
     );
@@ -227,7 +213,7 @@ const OfferPackage = () => {
                   placeholder="200"
                 />
               </label>
-              <label className="input input-bordered flex items-center gap-2">
+              {/* <label className="input input-bordered flex items-center gap-2">
                 Description :
                 <input
                   name="description"
@@ -235,7 +221,7 @@ const OfferPackage = () => {
                   className="grow"
                   placeholder="Description"
                 />
-              </label>
+              </label> */}
               <label className="input input-bordered flex items-center gap-2">
                 Category :
                 <input
@@ -246,7 +232,7 @@ const OfferPackage = () => {
                   placeholder="Category"
                 />
               </label>
-              <label className="input input-bordered flex items-center gap-2">
+              {/* <label className="input input-bordered flex items-center gap-2">
                 Available :
                 <input
                   name="available"
@@ -254,7 +240,7 @@ const OfferPackage = () => {
                   className="grow"
                   placeholder="200"
                 />
-              </label>
+              </label> */}
               <div className="flex items-end justify-end">
                 <button type="submit" className="btn btn-outline">
                   Submit

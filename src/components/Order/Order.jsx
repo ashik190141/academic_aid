@@ -13,6 +13,10 @@ import Swal from "sweetalert2";
 const Order = () => {
   const [orders, setOrders] = useState([]);
   // const [records, setRecords] = useState([]);
+  let p = 0;
+  if (localStorage.getItem("price")) {
+    p = localStorage.getItem("price");
+  }
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/v1/order/all-orders`)
@@ -101,7 +105,7 @@ const Order = () => {
               </Card>
             </div>
             <p className="py-2 pb-10 flex justify-start">
-              Total Price: {order?.totalPrice}
+              Total Price: {order?.totalPrice-p}
             </p>
           </div>
         ))}
