@@ -60,6 +60,7 @@ const OfferPackage = () => {
       buyProduct: parseInt(document.getElementById(`buy`).value),
       getProduct: parseInt(document.getElementById(`get`).value),
       image: selectedItems[0].image,
+      price: selectedItems[0].price
     };
 
     console.log(packageInfo);

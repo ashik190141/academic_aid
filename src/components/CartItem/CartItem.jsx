@@ -19,6 +19,8 @@ const CartItem = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [show, setShow] = useState(true);
 
+  console.log(selectedItems);
+
   useEffect(() => {
       fetch(
           `http://localhost:5000/api/v1/cart/addToCart/${email}`
@@ -34,10 +36,12 @@ const CartItem = () => {
   const navigate = useNavigate();
 
   const handleCheckboxChange = (item) => {
+    console.log(item);
     let newItem = [];
     const exists = selectedItems.find(
       (selectItem) => selectItem.productId == item.productId
     );
+    console.log(exists);
     if (!exists) {
       newItem = [...selectedItems, item];
     } else {
@@ -66,6 +70,7 @@ const CartItem = () => {
           discount: selectedItems[i].discount,
           quantity: selectedItems[i].quantity,
         };
+        
         data.push(obj)
       }
       const orderData = {
@@ -73,6 +78,7 @@ const CartItem = () => {
           data: data,
           totalPrice: totalPrice
       }
+      localStorage.setItem("totalPrice", orderData.totalPrice);
       console.log(orderData);
       fetch("http://localhost:5000/api/v1/order/create-order", {
         method: "POST",
